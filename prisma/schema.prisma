@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Workflow {
+  id          String        @id @default(uuid(7))
+  name        String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  WorkflowRun WorkflowRun[]
+}
+
+model WorkflowRun {
+  id         String    @id @default(uuid(7))
+  workflowId String
+  platform   Platform
+  workflow   Workflow  @relation(fields: [workflowId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  TestRun    TestRun[]
+  status     Status
+  time       Int
+}
+
+model Team {
+  id        String   @id @default(uuid(7))
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Test      Test[]
+}
+
+model Test {
+  id        String    @id @default(uuid(7))
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  TestRun   TestRun[]
+  Team      Team      @relation(fields: [teamId], references: [id])
+  teamId    String
+}
+
+model TestRun {
+  id            String      @id @default(uuid(7))
+  testId        String
+  test          Test        @relation(fields: [testId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  workflowRunId String
+  workflowRun   WorkflowRun @relation(fields: [workflowRunId], references: [id])
+  time          Int
+  status        Status
+  platform      Platform
+}
+
+enum Platform {
+  IOS
+  ANDROID
+}
+
+enum Status {
+  SUCCESS
+  FAILED
+}
