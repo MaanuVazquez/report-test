@@ -1,13 +1,13 @@
-import type { Route } from "./+types/api";
+import type { Route } from './+types/api'
 
 export async function action({ request }: Route.ActionArgs) {
-  const body = await request.json();
+  const body = await request.json()
 
-  console.log("RECEIVED", JSON.stringify(body));
+  console.log('RECEIVED', JSON.stringify(body))
 
   return new Response(JSON.stringify(body), {
     headers: {
-      "content-type": "application/json",
-    },
-  });
+      'content-type': 'application/json'
+    }
+  })
 }

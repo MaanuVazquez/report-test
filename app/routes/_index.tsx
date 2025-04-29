@@ -1,16 +1,11 @@
-import type { Route } from "./+types/_index";
-
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+export function meta() {
+  return [{ title: 'New React Router App' }, { name: 'description', content: 'Welcome to React Router!' }]
 }
 
-export function loader({ context }: Route.LoaderArgs) {
+export function loader() {
   return null
 }
 
-export default function Home({ loaderData }: Route.ComponentProps) {
-  return <div>Hello</div>;
+export default function Home() {
+  return <div>Hello</div>
 }
