@@ -1,11 +1,12 @@
-export function meta() {
-  return [{ title: 'New React Router App' }, { name: 'description', content: 'Welcome to React Router!' }]
-}
+import { redirect, useMatches } from 'react-router'
 
 export function loader() {
-  return null
+  // TODO: Implement auth in the future
+  throw redirect('/dashboard')
 }
 
 export default function Home() {
-  return <div>Hello</div>
+  const routes = useMatches()
+
+  return <div>{JSON.stringify(routes[0].data)}</div>
 }

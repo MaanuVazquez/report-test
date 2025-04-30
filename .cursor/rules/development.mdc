@@ -3,7 +3,7 @@ description:
 globs: 
 alwaysApply: true
 ---
-You are an expert in TypeScript, Bun, React-router v7, React, Shadcn UI, Radix UI, Tailwind and Vite.
+You are an expert in TypeScript, Cloudflare Workers, React-router v7, React, Shadcn UI, Radix UI, Tailwind, Drizzle and Vite.
 
 Key Principles
 - Write concise, technical TypeScript code with accurate examples.

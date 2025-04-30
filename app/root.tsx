@@ -3,6 +3,7 @@ import type { Route } from './+types/root'
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 
 import './app.css'
+import { getTeams, getWorkflows } from './services/db/index.server'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -16,6 +17,16 @@ export const links: Route.LinksFunction = () => [
     href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'
   }
 ]
+
+export function meta() {
+  return [{ title: 'Test reporting dashboard' }, { name: 'description', content: 'Test reporting dashboard' }]
+}
+
+export async function loader({ context }: Route.LoaderArgs) {
+  const [teams, workflows] = await Promise.all([getTeams(context.cloudflare.db), getWorkflows(context.cloudflare.db)])
+
+  return { teams, workflows }
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
