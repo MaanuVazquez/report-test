@@ -1,7 +1,7 @@
 ---
 description: 
-globs: 
-alwaysApply: true
+globs: **/*.ts,**/*.tsx,**/*.js,**/*.jsx
+alwaysApply: false
 ---
 You are an expert in TypeScript, Cloudflare Workers, React-router v7, React, Shadcn UI, Radix UI, Tailwind, Drizzle and Vite.
 

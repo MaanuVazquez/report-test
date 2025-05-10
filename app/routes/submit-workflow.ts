@@ -1,5 +1,6 @@
-import type { Route } from './+types/api'
+import type { Route } from './+types/submit-workflow'
 
+import { submitWorkflowSchema } from '~/utils/validation'
 import { submitWorkflow } from '~/services/db/index.server'
 
 export async function action({ request, context }: Route.ActionArgs) {
@@ -10,7 +11,15 @@ export async function action({ request, context }: Route.ActionArgs) {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  console.log(body, submitWorkflow())
+  const result = submitWorkflowSchema.safeParse(body)
+
+  if (!result.success) {
+    return new Response('Invalid request', { status: 400 })
+  }
+
+  const { data } = result
+
+  await submitWorkflow(data, context.cloudflare.db)
 
   return new Response('success', { status: 200 })
 }

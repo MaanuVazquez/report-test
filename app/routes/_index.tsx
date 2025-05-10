@@ -1,4 +1,4 @@
-import { redirect, useMatches } from 'react-router'
+import { redirect } from 'react-router'
 
 export function loader() {
   // TODO: Implement auth in the future
@@ -6,7 +6,5 @@ export function loader() {
 }
 
 export default function Home() {
-  const routes = useMatches()
-
-  return <div>{JSON.stringify(routes[0].data)}</div>
+  return <div>Home</div>
 }
