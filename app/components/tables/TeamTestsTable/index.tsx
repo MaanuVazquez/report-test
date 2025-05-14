@@ -16,10 +16,10 @@ import type { DashboardTeamTestsLoaderData } from '~/routes/dashboard.teams.$tea
 import { columns } from './table-configuration'
 
 type Props = {
-  teamsTests: DashboardTeamTestsLoaderData['teamTests']
+  teamTests: DashboardTeamTestsLoaderData['teamTests']
 }
 
-export default function TeamsTable({ teamsTests }: Props) {
+export default function TeamsTable({ teamTests }: Props) {
   // State for TanStack Table filters
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   // State for sorting
@@ -29,7 +29,7 @@ export default function TeamsTable({ teamsTests }: Props) {
 
   // Create the table instance
   const table = useReactTable({
-    data: teamsTests,
+    data: teamTests,
     columns,
     state: {
       columnFilters,

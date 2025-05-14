@@ -1,32 +1,33 @@
 import { createColumnHelper } from '@tanstack/react-table'
-import { User } from 'lucide-react'
+import { FlaskConical, User } from 'lucide-react'
 
 import { Button } from '~/components/ui/button'
+import type { DashboardTeamTestsLoaderData } from '~/routes/dashboard.teams.$teamId'
 import type { DashboardTeamsLoaderData } from '~/routes/dashboard.teams._index'
 import { formatDate, formatDuration } from '~/utils/date'
 
 // Create column definitions using the column helper
-const columnHelper = createColumnHelper<DashboardTeamsLoaderData['teams'][number]>()
+const columnHelper = createColumnHelper<DashboardTeamTestsLoaderData['teamTests'][number]>()
 
 export const columns = [
   columnHelper.accessor('id', {
-    header: 'Team',
+    header: 'Test name',
     cell: info => {
-      const teamId = info.getValue()
+      const testId = info.getValue()
 
       return (
-        <a className="flex text-blue-600 hover:underline dark:text-blue-400" href={`/dashboard/teams/${teamId}`}>
-          <User /> {info.row.original.name}
+        <a className="flex text-blue-600 hover:underline dark:text-blue-400" href={`/dashboard/test/${testId}`}>
+          <FlaskConical /> {info.row.original.name}
         </a>
       )
     }
   }),
-  columnHelper.accessor('testCount', {
-    header: 'Test count',
-    cell: info => <code>{info.getValue()}</code>
+  columnHelper.accessor('successRate', {
+    header: 'Success rate',
+    cell: info => `${info.getValue()}%`
   }),
   columnHelper.accessor('created_at', {
-    header: 'Created',
+    header: 'Added on',
     cell: info => formatDate(info.getValue())
   })
 ]

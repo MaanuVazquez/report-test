@@ -1,21 +1,10 @@
 import type { Route } from './+types/dashboard.teams.$teamId'
 
 import { useLoaderData } from 'react-router'
-import { avg, eq, sql } from 'drizzle-orm'
-import { useState } from 'react'
-import {
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-  type SortingState
-} from '@tanstack/react-table'
-import { ArrowDownIcon, ArrowUpIcon } from 'lucide-react'
+import { eq, sql } from 'drizzle-orm'
 
 import { team, test, testRun } from '~/services/db/schema'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table'
-import type { Test } from '~/utils/validation'
+import TeamTestsTable from '~/components/tables/TeamTestsTable'
 
 export async function loader({ params, context }: Route.LoaderArgs) {
   const { teamId } = params
@@ -51,6 +40,7 @@ export default function Team() {
   return (
     <div className="p-4 md:p-6">
       <h1 className="mb-6 text-3xl font-bold">{firstTest.teamName}</h1>
+      <TeamTestsTable teamTests={teamTests} />
     </div>
   )
 }
